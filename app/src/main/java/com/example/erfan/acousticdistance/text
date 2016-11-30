@@ -1,0 +1,75 @@
+           if(c1[rr]==10)
+                count71--;
+            else if(c1[rr]==01)
+                count66--;
+            else if(c1[rr]==11) {
+                count71--;
+                count66--;
+            }
+            if(c2[rr]==10)
+                count62--;
+            else if(c2[rr]==01)
+                count57--;
+            else if(c2[rr]==11) {
+                count62--;
+                count57--;
+            }
+
+            if(SharedVar.mode==0) {
+                if (magnitude[71] < 7 && magnitude[66] < 7) {
+                    c1[rr] = 00;
+                } else if (magnitude[71] > 7 && magnitude[66] < 7) {
+                    count71++;
+                    c1[rr] = 10;
+
+                } else if (magnitude[71] < 7 && magnitude[66] > 7) {
+                    count66++;
+                    c1[rr] = 01;
+                } else {
+                    //count7166++
+                    count66++;
+                    count71++;
+                    c1[rr] = 11;
+                }
+                if (count71 >= 4 && count66 >= 4) {
+                    for (int i = 0; i < alen; i++)
+                        c1[i] = 0;
+                    count66 = count71 = count7166 = rr = 0;
+                    activity.findViewById(R.id.tv).post(new Runnable() {
+                        public void run() {
+                            activity.detected(7166,0);
+
+                        }
+                    });
+                }
+            }
+            if(SharedVar.mode==1) {
+                if (magnitude[62] < 7 && magnitude[57] < 7) {
+                    c2[rr] = 00;
+                } else if (magnitude[62] > 7 && magnitude[57] < 7) {
+                    count62++;
+                    c2[rr] = 10;
+                   // Log.i("www","x" +  Long.toString(count62) + " " + Long.toString(System.currentTimeMillis()));
+
+                    if(count62==1)
+                        t = System.currentTimeMillis();;
+                } else if (magnitude[62] < 7 && magnitude[57] > 7) {
+                    count57++;
+                    c2[rr] = 01;
+                } else {
+                    count62++;
+                    count57++;
+                    c2[rr] = 11;
+                }
+                if (count62 >= 4 && count57 >= 4) {
+                    for (int i = 0; i < alen; i++)
+                        c2[i] = 0;
+                    count62 = count57 = count6257 = rr = 0;
+                    activity.findViewById(R.id.tv).post(new Runnable() {
+                        public void run() {
+                            activity.detected(6257,t);
+
+                        }
+                    });
+                }
+            }
